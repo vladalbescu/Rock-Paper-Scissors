@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    function playGame() {
+      // Use play singleRound inside this function to a play a 5 round game
+      // that keeps score and reports a winner or loser at the end
+      // Use console.log to display the results of each round and the winner at the end
+      // use prompt() to get input from the user
+
+      // VARIABLES
+      let numberOfRounds = 5;
+
+      let playerOneScore = 0;
+      let playerTwoScore = 0;
+
+      for (let i = 0; i < numberOfRounds; i++) {
+        let message = playSingleRound(playComputer(), playPlayer());
+        console.log(message);
+      }
+
+      console.log(
+        `The game has finished! The scores are:\nPlayer one: ${playerOneScore}\nPlayer two: ${playerTwoScore}`
+      );
+      if (playerOneScore > playerTwoScore) {
+        console.log("Player one wins!");
+      } else if (playerOneScore < playerTwoScore) {
+        console.log("Player two wins!");
+      } else {
+        console.log("It's a match! Play again!");
+      }
+
+      // FUNCTIONS
+
+      function playSingleRound(playerOneSelection, playerTwoSelection) {
+        // Returns a string that declares winner
+        // Function is case insensitive
+        if (playerOneSelection === playerTwoSelection) {
+          return `${playerOneSelection} vs ${playerTwoSelection} It's a match!`;
+        } else if (
+          (playerOneSelection === "rock" &&
+            playerTwoSelection === "scissors") ||
+          (playerOneSelection === "paper" && playerTwoSelection === "rock") ||
+          (playerOneSelection === "scissors" && playerTwoSelection === "paper")
+        ) {
+          playerOneScore++;
+          return `${playerOneSelection} vs ${playerTwoSelection} - Player one wins!`;
+        } else {
+          playerTwoScore++;
+          return `${playerOneSelection} vs ${playerTwoSelection} - Player two wins!`;
+        }
+      }
+
+      function playComputer() {
+        // Randomly returns either Rock, Paper or Scissors
+        let choices = ["rock", "paper", "scissors"];
+        let randomChoice = Math.floor(Math.random() * choices.length);
+
+        return choices[randomChoice];
+      }
+
+      function playPlayer() {
+        let playerSelection;
+        let message = "Rock, Paper or Scissors?";
+
+        do {
+          playerSelection = prompt(message) ?? "";
+          playerSelection = playerSelection.toLowerCase();
+          playerSelection = playerSelection.trim();
+        } while (
+          playerSelection !== "rock" &&
+          playerSelection !== "paper" &&
+          playerSelection !== "scissors"
+        );
+
+        return playerSelection;
+      }
+
+      // FUNCTIONS ENDS
+    }
+    // GAME FUNCTION ENDS
+
+    playGame();
+  </script>
+</html>
